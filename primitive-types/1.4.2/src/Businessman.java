@@ -10,11 +10,7 @@ public class Businessman {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println();
-            System.out.println("Выберите операцию и введите её номер:");
-            System.out.println("1. Добавить новый доход");
-            System.out.println("2. Добавить новый расход");
-            System.out.println("3. Выбрать систему налогооблажения");
+            printCommandRequest();
 
             String inputCommand = scanner.nextLine();
 
@@ -37,6 +33,14 @@ public class Businessman {
             }
         }
         System.out.println("Программа завершена!");
+    }
+
+    private static void printCommandRequest() {
+        System.out.println();
+        System.out.println("Выберите операцию и введите её номер:");
+        System.out.println("1. Добавить новый доход");
+        System.out.println("2. Добавить новый расход");
+        System.out.println("3. Выбрать систему налогооблажения");
     }
 
     private static int sumSpendings(Scanner scanner, int currentSpendings) {
