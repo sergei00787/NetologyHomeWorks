@@ -12,7 +12,9 @@ public class OperationDouble {
             int numRequestCommand;
             try {
                 numRequestCommand = Integer.parseInt(strRequestCommand);
+                String ss = scanner.nextLine();
             } catch (NumberFormatException ex){
+                System.out.println("Вы ввели не число, попробуйте еще раз");
                 continue;
             }
 
@@ -52,27 +54,52 @@ public class OperationDouble {
     }
 
     private static void compareDoubleAndFloat(Scanner scanner) {
-
-        System.out.println("Введите первое число:");
-        //double num1 = scanner.nextDouble();
-        double num1 = Double.MAX_VALUE;
-
-        System.out.println("Введите второе число:");
-        //float num2 = scanner.nextFloat();
-        float num2 = Float.MAX_VALUE;
+        double num1 = getNum1(scanner);
+        float num2 = getNum2(scanner);
+        final float threshold = 0.0000001f;
 
         float dif = num2 - (float) num1;
         System.out.println("Результат:");
-        if (dif > 0) {
-            System.out.println("Второе число больше первого");
-        } else if (dif < 0 ){
-            System.out.println("Первое число больше второго");
-        } else {
+        if (Math.abs(dif) < threshold){
             System.out.println("Числа равны");
+        } else {
+            if (dif > 0) {
+                System.out.println("Второе число больше первого");
+            } else if (dif < 0 ){
+                System.out.println("Первое число больше второго");
+            }
         }
+
         System.out.println("FLOAT NUM1=" + (float) num1);
         System.out.println("FLOAT NUM2=" + num2);
 
+
+    }
+
+    private static float getNum2(Scanner scanner) {
+        while(true){
+            try {
+                System.out.println("Введите второе число:");
+                String str = scanner.nextLine();
+                return Float.parseFloat(str);
+            } catch (NumberFormatException nfe){
+                System.out.println("Вы ввели неверное число, попробуйте еще раз");
+                continue;
+            }
+        }
+    }
+
+    private static double getNum1(Scanner scanner) {
+        while(true){
+            try {
+                System.out.println("Введите первое число:");
+                String str = scanner.nextLine();
+                return Double.parseDouble(str);
+            } catch (NumberFormatException nfe){
+                System.out.println("Вы ввели неверное число, попробуйте еще раз");
+                continue;
+            }
+        }
 
     }
 
