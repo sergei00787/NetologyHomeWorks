@@ -12,7 +12,6 @@ public class OperationDouble {
             int numRequestCommand;
             try {
                 numRequestCommand = Integer.parseInt(strRequestCommand);
-                String ss = scanner.nextLine();
             } catch (NumberFormatException ex){
                 System.out.println("Вы ввели не число, попробуйте еще раз");
                 continue;
@@ -34,11 +33,17 @@ public class OperationDouble {
             }
             break;
         }
+    }
 
+    private static void printCommandRequest() {
+        System.out.println();
+        System.out.println("Операции над double/float");
+        System.out.println("1. Сравнить");
+        System.out.println("2. Округлить");
+        System.out.println("3. Отбросить дробную часть");
     }
 
     private static void truncateTail(Scanner scanner) {
-
         System.out.println("Введите число:");
         double num1 = scanner.nextDouble();
         System.out.println("Результат:");
@@ -46,7 +51,6 @@ public class OperationDouble {
     }
 
     private static void roundDouble(Scanner scanner) {
-
         System.out.println("Введите число:");
         double num1 = scanner.nextDouble();
         System.out.println("Результат:");
@@ -54,9 +58,9 @@ public class OperationDouble {
     }
 
     private static void compareDoubleAndFloat(Scanner scanner) {
-        double num1 = getNum1(scanner);
-        float num2 = getNum2(scanner);
-        final float threshold = 0.0000001f;
+        double num1 = getNum(scanner, "Введите первое число:");
+        float num2 = getNum(scanner, "Введите второе число:");
+        final float threshold = 0.0000001F;
 
         float dif = num2 - (float) num1;
         System.out.println("Результат:");
@@ -69,17 +73,12 @@ public class OperationDouble {
                 System.out.println("Первое число больше второго");
             }
         }
-
-        System.out.println("FLOAT NUM1=" + (float) num1);
-        System.out.println("FLOAT NUM2=" + num2);
-
-
     }
 
-    private static float getNum2(Scanner scanner) {
+    private static float getNum(Scanner scanner, String phrase) {
         while(true){
             try {
-                System.out.println("Введите второе число:");
+                System.out.println(phrase);
                 String str = scanner.nextLine();
                 return Float.parseFloat(str);
             } catch (NumberFormatException nfe){
@@ -87,27 +86,5 @@ public class OperationDouble {
                 continue;
             }
         }
-    }
-
-    private static double getNum1(Scanner scanner) {
-        while(true){
-            try {
-                System.out.println("Введите первое число:");
-                String str = scanner.nextLine();
-                return Double.parseDouble(str);
-            } catch (NumberFormatException nfe){
-                System.out.println("Вы ввели неверное число, попробуйте еще раз");
-                continue;
-            }
-        }
-
-    }
-
-    private static void printCommandRequest() {
-        System.out.println();
-        System.out.println("Операции над double/float");
-        System.out.println("1. Сравнить");
-        System.out.println("2. Округлить");
-        System.out.println("3. Отбросить дробную часть");
     }
 }
