@@ -43,7 +43,7 @@ public class TaskManager {
         int indexFirstTime = input.indexOf(phrase);
         if (indexFirstTime == -1) return "";
 
-        String result = "";
+        String result;
         try{
             result = input.substring(indexFirstTime + phrase.length(), indexFirstTime + phrase.length() + 3);
         } catch (IndexOutOfBoundsException indexOutOfBoundsException){
