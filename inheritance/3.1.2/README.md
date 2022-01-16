@@ -21,7 +21,7 @@
 
 Данный функционал пригодится в случае массовой фильтрации книг по какому-то искомому статусу (в нашем случае по жанру).
 
-Также необходимо будет описать класс `Book` с базовым набором полей, состоящим из `title` и списка жанров, и класс `BookService` с методом `filterBookByGenre`, в котором будет осуществляться фильтрация книг.
+Также необходимо будет описать класс `Book2` с базовым набором полей, состоящим из `title` и списка жанров, и класс `BookService` с методом `filterBookByGenre`, в котором будет осуществляться фильтрация книг.
 
 Общая идея следующая: у каждой книги может быть множество жанров разных групп одновременно, мы хотим научиться отбирать книги по нужному
 нам жанру.
@@ -109,20 +109,20 @@ public class FantasticGenre extends GenreByContent {
 
 На этом этапе создание жанров завершено.
 
-5. Создадим класс книги - `Book`, который будет использовать любые наши реализации жанров (`ProseGenre`, `VerseGenre`, `StoryGenre`,`NovelGenre`,`NarrativeGenre`, `DetectiveGenre`, `FantasticGenre`, `ProfessionalGenre`), для этого в классе `Book` нужно создать поле с типом массив `Genre[] genres`.
+5. Создадим класс книги - `Book2`, который будет использовать любые наши реализации жанров (`ProseGenre`, `VerseGenre`, `StoryGenre`,`NovelGenre`,`NarrativeGenre`, `DetectiveGenre`, `FantasticGenre`, `ProfessionalGenre`), для этого в классе `Book2` нужно создать поле с типом массив `Genre[] genres`.
 
 ```
-public class Book {
+public class Book2 {
     private String title;
     private Genre[] genres;
 
-    public Book(String title, Genre[] genres) {
+    public Book2(String title, Genre[] genres) {
         this.title = title;
         this.genres = genres;
     }
 
-    //for creating new Book
-    public Book(String title) {
+    //for creating new Book2
+    public Book2(String title) {
         this.title = title;
     }
 
@@ -146,8 +146,8 @@ public class Book {
 public class BookService {
 
     //bookList - список книг, genre - жанр для фильтрации (поиска соответствия)
-    public void filterBookByGenre(Book[] bookList, Genre genre) {
-        for (Book book : bookList) { //перебираем все книги по очереди
+    public void filterBookByGenre(Book2[] bookList, Genre genre) {
+        for (Book2 book : bookList) { //перебираем все книги по очереди
             for (Genre genreFromBook : book.getGenres()) { //у каждой книги перебираем всю коллекцию жанров, которыми она обладает
               if (genreFromBook.getAttributeOfGenre().equals(genre.getAttributeOfGenre())) { //если базовый тип соотвествует базовому типу жанра, который мы передали в качестве аргумента методу, то переходим к следующей проверке
                 if (genreFromBook.equals(genre)) { //если жанр соответствует искомому, значит книга подходит по жанру
@@ -165,23 +165,23 @@ public class BookService {
 }
 ```
 
-7. В классе `Main.java` создайте объект/объекты класса `Book`, используя конструктор, и убедитесь, что функция фильтрации была реализована верно. Например:
+7. В классе `Main.java` создайте объект/объекты класса `Book2`, используя конструктор, и убедитесь, что функция фильтрации была реализована верно. Например:
 
 ```
    public static void main(String[] args) {
         //Создадим первую книгу с тремя жанрами
-        Book book1 = new Book("Властелин колец", new Genre[] {new StoryGenre(), new ProseGenre(), new FantasticGenre())};
+        Book2 book1 = new Book2("Властелин колец", new Genre[] {new StoryGenre(), new ProseGenre(), new FantasticGenre())};
         //Создадим вторую книгу с двумя жанрами
-        Book book2 = new Book("Шерлок Холмс", new Genre[] {new NovelGenre(), new DetectiveGenre())};
+        Book2 book2 = new Book2("Шерлок Холмс", new Genre[] {new NovelGenre(), new DetectiveGenre())};
 
         //Создадим объект `BookService` - для фильтрации
         BookService bookService = new BookService();
         
         //Вызовем метод фильтрации, куда передадим список книг и жанр фильтрации в качестве аргументов
-        bookService.filterBookByGenre(new Book[]{book1, book2}, new StoryGenre());
-        bookService.filterBookByGenre(new Book[]{book1, book2}, new DetectiveGenre());
-        bookService.filterBookByGenre(new Book[]{book1, book2}, new NarrativeGenre());
-        bookService.filterBookByGenre(new Book[]{book1, book2}, new VerseGenre());
+        bookService.filterBookByGenre(new Book2[]{book1, book2}, new StoryGenre());
+        bookService.filterBookByGenre(new Book2[]{book1, book2}, new DetectiveGenre());
+        bookService.filterBookByGenre(new Book2[]{book1, book2}, new NarrativeGenre());
+        bookService.filterBookByGenre(new Book2[]{book1, book2}, new VerseGenre());
    }
 ```
 8. Протестируем работу программы.
