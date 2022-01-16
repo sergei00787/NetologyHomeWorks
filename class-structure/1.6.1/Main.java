@@ -7,7 +7,7 @@ public class Main {
         Book book1 = new Book(123,
                 "Евгений Онегин",
                 "ред.1",
-                new Author[]{author1},
+                author1,
                 LocalDate.of(1833, 01, 01),
                 500,
                 "«Мой дядя самых честных правил,\n" +
@@ -63,9 +63,5 @@ public class Main {
         System.out.println("Сейчас онлайн " + User.totalOnline + " пользователя(ей)");
 
         book1.read();
-
-
-
-
     }
 }

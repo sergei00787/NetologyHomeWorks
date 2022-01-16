@@ -1,20 +1,19 @@
 import java.time.LocalDate;
-import java.util.Arrays;
 
 public class Book {
     private final int isbn;
     private final String title;
     private final String numberEdition;
-    private final Author[] authors;
+    private final Author author;
     private final LocalDate yearPublishing;
     private final int pageCount;
     private final String text;
 
-    public Book(int isbn, String title, String numberEdition, Author[] authors, LocalDate yearPublishing, int pageCount, String text) {
+    public Book(int isbn, String title, String numberEdition, Author author, LocalDate yearPublishing, int pageCount, String text) {
         this.isbn = isbn;
         this.title = title;
         this.numberEdition = numberEdition;
-        this.authors = authors;
+        this.author = author;
         this.yearPublishing = yearPublishing;
         this.pageCount = pageCount;
         this.text = text;
@@ -26,7 +25,7 @@ public class Book {
                 "isbn=" + isbn +
                 ", title='" + title + '\'' +
                 ", numberEdition='" + numberEdition + '\'' +
-                ", authors=" + Arrays.toString(authors) +
+                ", author=" + author +
                 ", yearPublishing=" + yearPublishing +
                 ", pageCount=" + pageCount +
                 ", text='" + text + '\'' +
