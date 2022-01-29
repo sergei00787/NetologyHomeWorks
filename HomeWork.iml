@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_15">
+    <output url="file://$MODULE_DIR$/src/target/classes" />
+    <output-test url="file://$MODULE_DIR$/src/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/reference-types/1.5.1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/reference-types/1.5.2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/reference-types/1.5.3" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/class-structure/1.6.1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/one-dimensional-array/2.1.1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/java/basic/multy_arr" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/multidimensional-array/2.2.2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/inheritance/3.1.1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/inheritance/3.1.2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/multidimensional-array/2.2.1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/inheritance/3.1.3" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/polymorphism/3.2.1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/polymorphism/3.2.2" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/src/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
