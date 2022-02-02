@@ -1,188 +1,111 @@
-## Задача 3. Иерархия "Автомобили"
+## Задача 2. Задача от бухгалтеров
 
 ### Описание
-На этот раз рассмотрим предметную область "Автомобили".
-Необходимо спроектировать приложение по размещению объявлений о продаже автомобилей. 
+Следующая задача пришла от наших бухгалтеров.
+Бухгалтерская программа должна уметь проводить операции c различными агентами, как c физическими/юридическими лицами, так и с иностранными компаниями: чп, ип, ооо, зао, ~~иклмн~~, ~~ёпрст~~.
+С некоторых операций налог платить не нужно, некоторые облагаются подоходным налогом, с некоторых необходимо уплатить НДС.
+Необходимо расширить функциональность класса `Bill` возможностью работы с различными системами налогообложения.
 
-Реализуйте иерархию классов автомобилей с помощью наследования. В ней должны быть представлены три группы классов: 
+### Дополнительная информация
+Практически в любом языке программирования, если вы напишете нечто подобное, вы получите не то, что вы могли ожидать: 
+```java 
+System.out.println(0.1 + 0.2); // => 0.30000000000000004
+```
+Связанно это с тем, что числа в компьютере хранятся в двоичном виде, и **конечные** дроби в десятичной системе счисления `0.1` и `0.2` превращаются в **бесконечные периодические** дроби в двоичной системе счисления `0.00011001100110011010` и `0.00110011001100110011` соответственно.
+Как следствие, часть числа теряется, а значит, и точность при операциях с ними. 
+Подробнее про представление вещественных чисел в компьютере [на сайте ИТМО](https://neerc.ifmo.ru/wiki/index.php?title=%D0%9F%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B2%D0%B5%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D1%85_%D1%87%D0%B8%D1%81%D0%B5%D0%BB).
 
-→ по назначению (грузовые/легковые/пассажирские);
+Для того чтобы производить расчёты с десятичными дробными числами, существует специальный класс `BigDecimal` (большое десятичное). Большое, потому что у него нет стандартных ограничений как у `double (-1.7E+308 до 1.7E+308)` или `int (-2147483648 до 2147483647)`.
+Этот класс может хранить число, состоящее из 2,147,483,647 цифр, ~~Карл~~! А десятичное, потому что каждая цифра числа хранится по отдельности, из-за чего не возникает проблем с потерями при переводе между системами счисления.
+В задаче предлагается принять некоторые неточности и использовать уже знакомый нам тип double. Плюсиком будет решение задачи `№ 2*` (со звёздочкой).
 
-→ по типу кузова (седан/универсал/грузовик/автобус);
+### Функционал программы
 
-→ по типу топлива (бензиновые, дизельные, гибридные и электрические).
-
-Необходимо с помощью наследования реализовать программу, в которой будет один базовый класс `VehicleType`, три наследника базового класса  
-(`VehicleTypeByPurpose`, `VehicleTypeByBodyTypes`, `VehicleTypeByFuelTypes`), в которых будeт определено значение поля `attribute` каждой группы типов, 
-и на каждый класс групп типов — по несколько классов, в которых будет определено конкретное определение типа.
-
-Данный функционал пригодится в случае массовой фильтрации объявлений по какому-то искомому типу.
-
-Также необходимо описать класс `VehicleAd`:
-* с базовым набором полей, состоящим из id объявления, model (модели авто) и трех полей с каждым типом, 
-* и `AdsService`, в котором будет осуществляться фильтрация объявлений.
+→ Создание нескольких счетов и расчет налогов для них.
 
 ### Процесс реализации
-1. Создайте Enum класс `VehicleTypeEnum` с 8 возможными типами авто в нашей программе.
-```
-public enum VehicleTypeEnum {
-    TRUCK,CAR,PASSENGER,SEDAN,WAGON,PICKUP,BUS,PETROL,DIESEL,HYBRID,ELECTRIC
-}
-```
-2. Создайте класс `VehicleType` с protected полем `attribute` типа String, конструктором, принимающим один аргумент, и двумя методами.
-```
-    public String getAttributeOfType() {
-          return attribute;
-    }
-    public String getTypeName() {
-          return "Some vehicle type name";
-    }
-```
-3. Создайте трёх наследников класса `VehicleType`. 
-Например: `VehicleTypeByPurpose`, класс с конструктором, вызывающий конструктор предка. Обязательно переопределите метод `equals` класса `Object`.
+1. Класс `Bill`
 
-```
-public class VehicleTypeByPurpose extends VehicleType {
-    public VehicleTypeByPurpose() {
-            super("Vehicle type by purpose");
+В системе уже есть класс `Bill`, в который мы добавили поле `TaxType taxType;` и метод `payTaxes()`:
+
+```java
+class Bill {
+    private double amount;
+    private TaxType taxType;
+    private TaxService taxService;
+    
+    public Bill(double amount, TaxType taxType, TaxService taxService) {
+        this.amount = amount;
+        this.taxType = taxType;
+        this.taxService = taxService;
     }
     
-    @Override
-    public boolean equals(Object object) {
-        if (object == null || getClass() != object.getClass()) return false;
-    
-         VehicleTypeByPurpose that = (VehicleTypeByPurpose) object;
-         return attribute != null ? attribute.equals(that.attribute) : false;
-     }
-}
-```
-Сделайте самостоятельно остальные два класса: `VehicleTypeByBodyTypes` и `VehicleTypeByFuelTypes` с собственным значением поля `attribute`, присущим данной группе типов автомобилей.
-4. Создайте наследников каждого из классов групп типов. В них необходимо переопределить только метод `getTypeName`.
-
-Например:
-```
-public class PassengerType extends VehicleTypeByPurpose {
-
-    @Override
-    public String getTypeName() {
-        return VehicleTypeEnum.PASSENGER.name();
-    }
-}
-```
-и 
-```
-public class TruckType extends VehicleTypeByPurpose {
-
-    @Override
-    public String getTypeName() {
-        return VehicleTypeEnum.TRUCK.name();
+    public void payTaxes() {
+        // TODO вместо 0.0 посчитать размер налога исходя из TaxType
+        double taxAmount = 0.0;
+        
+        taxService.payOut(taxAmount);
     }
 }
 ```
 
-Создайте остальные имплементации.
-
-5. Добавьте в класс `VehicleAd` пять полей.
-
-```
-public class VehicleAd {
-    private String model;
-    private String id;
-    private VehicleTypeByPurpose vehicleTypeByPurpose;
-    private VehicleTypeByBodyTypes vehicleTypeByBodyTypes;
-    private VehicleTypeByFuelTypes vehicleTypeByFuelTypes;
-
-    public VehicleAd(String model, String id, VehicleTypeByPurpose vehicleTypeByPurpose, 
-    VehicleTypeByBodyTypes vehicleTypeByBodyTypes, VehicleTypeByFuelTypes vehicleTypeByFuelTypes) {
-        this.model = model;
-        this.id = id;
-        this.vehicleTypeByPurpose = vehicleTypeByPurpose;
-        this.vehicleTypeByBodyTypes = vehicleTypeByBodyTypes;
-        this.vehicleTypeByFuelTypes = vehicleTypeByFuelTypes;
-    }
-
-    //for creating new Car
-    public VehicleAd(String model) {
-        this.model = model;
-    }
-
-    public VehicleTypeByPurpose getVehicleTypeByPurpose() {
-            return vehicleTypeByPurpose;
-    }
-    
-    public VehicleTypeByBodyTypes getVehicleTypeByBodyTypes() {
-                return vehicleTypeByBodyTypes;
-    }
-    
-    public VehicleTypeByFuelTypes getVehicleTypeByFuelTypes() {
-                    return vehicleTypeByFuelTypes;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String toString(){
-        return this.model;
+А также класс налоговой службы:
+```java
+class TaxService {
+    public void payOut(double taxAmount) {
+        System.out.format("Уплачен налог в размере %.2f%n", taxAmount);
     }
 }
 ```
 
-6. Создайте сервис `AdsService`, в котором можно будет отфильтровать объявления по каждому типу. 
-
+2. Создадим классы для различных типов налогообложения.
+* Базовый класс
+```java 
+class TaxType {
+    public double calculateTaxFor(double amount) {
+        // TODO override me!
+        return 0.0;
+    }
+}
 ```
-public class AdsService {
-    private VehicleAd[] adList;
+* Классы, расширяющие `TaxType`:
+     * Подоходный налог, = 13% (`IncomeTaxType`)
+     * НДС, = 18% (`VATaxType`)
+     * Прогрессивный налог, до 100 тысяч = 10%, больше 100 тысяч = 15% (`ProgressiveTaxType`)
 
-    public void setAdList(VehicleAd[] adList) {
-        this.adList = adList;
-    }
+3. В методе `main` создадим несколько счетов и оплатим с них налоги в налоговую службу.
 
-    public void filterByVehicleTypeByPurpose(VehicleTypeByPurpose vehicleType) {
-         for (VehicleAd ad : adList) {
-            if (ad.getVehicleTypeByPurpose().equals(vehicleType)) {
-              System.out.println("Объявление № " + ad.getId() + " подходит под данный фильтр с атрибутом: тип авто - " 
-              + vehicleType.getTypeName() + ", атрибут фильтра " + vehicleType.getAttributeOfType());
-            } else {
-            System.out.println("Объявление № " + ad.getId() + " не прошло фильтр: тип авто - " + vehicleType.getTypeName() + ", критерий- " + 
-                                            vehicleType.getAttributeOfType() + ", так как имеет тип авто " +
-                                            ad.getVehicleTypeByPurpose().getTypeName());
-            }
-        }
-  }
-  
-  public void filterByVehicleTypeByBodyTypes(VehicleTypeByBodyTypes vehicleType) {
-           //TODO 
+```java
+public static void main(String[] args) {
+    TaxService taxService = new TaxService();
+    Bill[] payments = new Bill[] {
+        // TODO создать платежи с различным типами налогообложения
+    };
+    for (int i = 0; i < payments.length; ++i) {
+        Bill bill = payments[i];
+        bill.payTaxes();
     }
-    
-  public void filterByVehicleTypeByFuelTypes(VehicleTypeByFuelTypes vehicleType) {
-           //TODO 
-    }
-  
 }
 ```
 
-7. В классе Main.java создайте несколько объектов класса `VehicleAd`, используя конструктор, и убедитесь, 
-что функция фильтрации была реализована верно. 
-Например:
+## Задача 2* 
 
+Здесь необходимо реализовать тот же функционал, но используя вместо double –> BigDecimal.
+
+Работа с ним может показаться необычной и странной. Например, их нельзя сложить, используя оператор `+` (в Java запрещено перегружать операторы), или сравнить с помощью `==` (так как это объект, произойдёт сравнение ссылок, а не значений объектов). Вместо этого мы должны использовать методы `.add(…)` и `.compareTo(…)` соответственно.
+
+Экземпляр этого класса можно создать с помощью `new BigDecimal("0.1")` или `BigDecimal.valueOf(0.2)`.
+Как и `String`, экземпляры этого класса неизменяемые (иммутабельные), а методы `.add(…)`, `.multiply(…)` возвращают новый объект, содержащий результат операции.
+
+Например, чтобы сложить 0.1 рубля и 0.2 рубля и получить ожидаемые 30 копеек, мы могли бы написать код:
+
+```java
+BigDecimal first = new BigDecimal("0.10");
+BigDecimal second = BigDecimal.valueOf(0.2);
+
+BigDecimal sum = first.add(second);
+
+System.out.println(sum.toString()); // => 0.30
 ```
-    AdsService adsService = new AdsService();
-    VehicleAd volvoAd = new VehicleAd("Volvo", "123", new PassengerType(), 
-       new SedanType(), new PetrolType());
-    VehicleAd kamazAd = new VehicleAd("Kamaz", "45", new TruckType(), 
-          new PickupType(), new DieselType());
-    
-    adsService.setAdList(new VehicleAd[] {volvoAd, kamazAd});
-   
-    adsService.filterByVehicleTypeByPurpose(new PassengerType());
-   
-    adsService.filterByVehicleTypeByPurpose(new TruckType());
-    
-    //TODO Создайте объявление с типами CAR, SEDAN, PETROL и отфильтруйте объявления с бензиновым топливом
-                  
-```
+
+При делении BigDecimal нужно обязательно указывать способ округления результата. Про способы округления чисел в `BigDecimal` можно почитать [например, тут](http://developer.alexanderklimov.ru/android/java/bigdecimal.php).

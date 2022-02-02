@@ -17,6 +17,10 @@
       <sourceFolder url="file://$MODULE_DIR$/src/inheritance/3.1.3" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/polymorphism/3.2.1" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/polymorphism/3.2.2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/list/4.1.1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/queue/4.2.1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/queue/4.2.2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/hash-collections/4.3.1" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/src/target" />
     </content>
     <orderEntry type="inheritedJdk" />
