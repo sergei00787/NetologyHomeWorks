@@ -21,6 +21,11 @@
       <sourceFolder url="file://$MODULE_DIR$/src/queue/4.2.1" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/queue/4.2.2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/hash-collections/4.3.1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/abstractions-interfaces/3.3.1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/abstractions-interfaces/3.3.2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/exceptions/3.4.1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/exceptions/3.4.2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/hash-collections/4.3.2" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/src/target" />
     </content>
     <orderEntry type="inheritedJdk" />

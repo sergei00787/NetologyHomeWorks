@@ -56,11 +56,11 @@ public class Main {
                         "И в Летний сад гулять водил."
                 );
 
-        User user1 = new User("selya@ya.ru", "Silvester", "Stalone");
-        User user2 = new User("bred@yandex.ru", "Bred", "Pit");
-        User user3 = new User("BB@google.com", "Bugs", "Bunny");
+        User2 user1 = new User2("selya@ya.ru", "Silvester", "Stalone");
+        User2 user2 = new User2("bred@yandex.ru", "Bred", "Pit");
+        User2 user3 = new User2("BB@google.com", "Bugs", "Bunny");
 
-        System.out.println("Сейчас онлайн " + User.totalOnline + " пользователя(ей)");
+        System.out.println("Сейчас онлайн " + User2.totalOnline + " пользователя(ей)");
 
         book1.read();
     }
