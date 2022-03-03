@@ -1,40 +1,29 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class PhoneContactsMain {
-    private static Scanner scanner = new Scanner(System.in);
-    private static PhoneContacts phoneContacts;
+    private static PhoneBook phoneBook;
 
     public static void main(String[] args) {
-        phoneContacts = new PhoneContacts();
-        requestGroups();
-        requestContacts();
-        phoneContacts.printGroupContacts();
-    }
+        phoneBook = new PhoneBook();
 
-    private static void requestGroups() {
-        System.out.println("Программа справочник");
-        System.out.println("Введите название группы контактов:");
-        String newGroupContact = scanner.nextLine();
-        while (!"нет".equals(newGroupContact.toLowerCase())) {
-            phoneContacts.addGroupContact(newGroupContact);
-            System.out.println("Создать еще одну группу (введите название или введите нет)?");
-            newGroupContact = scanner.nextLine();
-        }
-    }
+        phoneBook.addGroupContact("Home");
+        phoneBook.addGroupContact("Work");
 
-    private static void requestContacts() {
-        System.out.println("Создать контакт (введите наименование и его номер или введите нет)?");
-        String contactString = scanner.nextLine();
-        Contact contact = null;
-        while (!"нет".equals(contactString.toLowerCase())){
+        Contact contact1 = new Contact("Petya","+7(961)-777-77-77");
+        Contact contact2 = new Contact("Vasya","+7(904)-777-77-77");
 
-            contact = phoneContacts.createContactFromString(contactString);
-            System.out.println("Укажите группы контакта через пробел");
-            String groupsString = scanner.nextLine();
-            if (contact != null) phoneContacts.addContactToGroup(contact, groupsString);
+        phoneBook.addContactToGroup(contact1, "Home");
+        phoneBook.addContactToGroup(contact1, "Work");
 
-            System.out.println("Создать контакт (введите наименование и его номер или введите нет)?");
-            contactString = scanner.nextLine();
-        }
+        phoneBook.addContactToGroup(contact2, "Home");
+
+        phoneBook.printGroupContacts();
+
+        List<Contact> contacts = phoneBook.findContactsByGroup("Home");
+        System.out.println();
+        System.out.println(contacts);
+
+        System.out.println(phoneBook.findContactByPhoneNumber("+7(961)-777-77-77"));
     }
 }

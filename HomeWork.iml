@@ -26,6 +26,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/exceptions/3.4.1" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/exceptions/3.4.2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/hash-collections/4.3.2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/tree-collections/4.5.1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/tree-collections/4.5.2" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/src/target" />
     </content>
     <orderEntry type="inheritedJdk" />
